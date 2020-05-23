@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <form action="../dynamics/revisiondocente.php" method="post">
+      <p>
+        Escriba su nombre:
+        <input type="text" name="Nombre" value="" placeholder = "Su nombre" maxlength="40"
+        pattern = "^[A-Za-zá-úÁ-Úä-üÄ-Ü][A-Za-zá-úÁ-Úä-üÄ-Ü\- ]*" title ="Coloque su nombre" titlerequired>
+      </p>
+      <p>
+        Escriba su primer apellido:
+        <input type="text" name="Papellido" value="" placeholder = "Su primer apellido" maxlength="25"
+        pattern = "^[A-Za-zá-úÁ-Úä-üÄ-Ü][A-Za-zá-úÁ-Úä-üÄ-Ü\- ]*" title ="Coloque su apellido" required>
+      </p>
+      <p>
+        Escriba su segundo apellido
+        <input type="text" name="Mapellido" value="" placeholder = "Su segundo apellido" maxlength="25"
+        pattern = "^[A-Za-zá-úÁ-Úä-üÄ-Ü][A-Za-zá-úÁ-Úä-üÄ-Ü\- ]*" title ="Coloque su apellido" required>
+      </p>
+      <p>
+        Escriba su RFC (usuario):
+        <input type="text" name="correo" value="" placeholder = "Su RFC" title = "El formato debe coincider con el de RFC"
+        pattern = "^[A-Z]{4}[0-9][0-9]([0][1-9]|[1][0-2])([0][1-9]|[1-2][0-9]|[3][0-1])[A-Z1-9]{3}" required>
+      </p>
+      <p>
+        Escriba una contraseña
+        <input type="password" name="contrasena" value="" placeholder ="Escriba cuidadosamente" minlength="6"
+        title = "Mínimo 10 caracteres">
+      </p>
+      <p>
+        <input type="submit" name="Enviar" value="Enviar">
+      </p>
+  </body>
+</html>
