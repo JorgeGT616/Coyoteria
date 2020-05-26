@@ -1,0 +1,14 @@
+body{
+    background: no-repeat  url("../Img/Fondo.jpg");
+    background-size: cover;
+    font-family: Candara
+  }
+
+.transparente {
+  background-color:rgba(0, 0, 0, 0.76);
+}
+
+.aber{
+  width: 300px;
+  height: 300px;
+}
