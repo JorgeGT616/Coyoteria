@@ -57,7 +57,7 @@ else
                     Enviar al auditorio <input type='Radio' name='envio' value='Auditorio' required> <br>
                     Enviar a patio de cuartos <input type='Radio' name='envio' value='PatCuartos' required> <br>
                     Enviar al Antonio Caso <input type='Radio' name='envio' value='AntonioCaso' required> <br>
-                    Enviar a salones de dibujo <input type='Radio' name='dibujo' value='SalDibujo' required> <br>
+                    Enviar a salones de dibujo <input type='Radio' name='envio' value='SalDibujo' required> <br>
                     Enviar a pimponeras <input type='Radio' name='envio' value='Pimponeras' required> <br>
                   </p>
                   <br>
