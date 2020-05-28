@@ -2,7 +2,7 @@ body{
     background: no-repeat  url("../Img/Fondo.jpg");
     background-size: cover;
     font-family: Candara
-  }
+}
 
 .transparente {
   background-color:rgba(0, 0, 0, 0.76);
@@ -30,8 +30,14 @@ body{
   width: 377px;
   height: 300px;
   color: solid white;
+  margin:auto;
 }
 
 .primera{
   width: 700px;
+}
+
+img{
+  position: relative;
+  left: 400px;
 }
