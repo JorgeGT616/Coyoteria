@@ -35,7 +35,7 @@
             $consulta = "DELETE FROM Trabajador WHERE NoSeguridadSocial='$usuario'";
     }
     //Inicia conexión con base, ejecuta la consulta y cierra conexión
-    $conexion = mysqli_connect("localhost", "root", "", "El_Coyote_Hambriento");
+    $conexion = mysqli_connect("localhost", "root", "", "ECH");
     mysqli_query($conexion, $consulta);
     mysqli_close($conexion);
     //Envía mensaje de acción realizada
