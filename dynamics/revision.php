@@ -57,7 +57,67 @@
           }
         }
         if ($resp== "¡Bien! Su contraseña tiene mayúsculas") {
-          header("Location: Welcome.php");
+          $conexion = mysqli_connect("localhost", "root", "", "Coyote");
+          if( !$conexion ){
+            echo mysqli_conect_error();
+            echo mysqli_conect_errno();
+            exit();
+          }
+          else {
+            if (isset($_POST['tipo']) && $_POST['tipo'] == "A") {
+              $nombre = (isset($_POST['Nombre']) && $_POST['Nombre'] != " ")? $_POST['Nombre'] : "Desconocido";
+              $papellido = (isset($_POST['Papellido']) && $_POST['Papellido'] != " ")? $_POST['Papellido'] : "Desconocido";
+              $mapellido = (isset($_POST['Mapellido']))? $_POST['Mapellido'] : "";
+              $grupo = (isset($_POST['Grupo']) && $_POST['Grupo'] != " ")? $_POST['Grupo'] : "0";
+              if (isset($_POST['NumeroCuenta']) && $_POST['NumeroCuenta'] != " ") {
+                $numcuenta = $_POST['NumeroCuenta'];
+              }
+              if (isset($_POST['contrasena']) && $_POST['contrasena'] != "") {
+                $pass = $_POST['contrasena'];
+              }
+              if (isset($numcuenta) && isset($pass)) {
+                $nombre.=" ".$papellido." ".$mapellido;
+                $consulta = "INSERT INTO alumno (NoCuenta, Nombre, Grupo, Contrasena) VALUES ('$numcuenta', '$nombre', '$grupo', '$pass')";
+                mysqli_query($conexion, $consulta);
+                header("Location: Welcome.php");
+              }
+            }
+            elseif (isset($_POST['tipo']) && $_POST['tipo'] == "P") {
+              $nombre = (isset($_POST['Nombre']) && $_POST['Nombre'] != " ")? $_POST['Nombre'] : "Desconocido";
+              $papellido = (isset($_POST['Papellido']) && $_POST['Papellido'] != " ")? $_POST['Papellido'] : "Desconocido";
+              $mapellido = (isset($_POST['Mapellido']))? $_POST['Mapellido'] : "";
+              $col = (isset($_POST['col']) && $_POST['col'] != " ")? $_POST['col'] : "Desconocido";
+              if (isset($_POST['rfc']) && $_POST['rfc'] != " ") {
+                $rfc = $_POST['rfc'];
+              }
+              if (isset($_POST['contrasena']) && $_POST['contrasena'] != "") {
+                $pass = $_POST['contrasena'];
+              }
+              if (isset($rfc) && isset($pass)) {
+                $nombre.=" ".$papellido." ".$mapellido;
+                $consulta = "INSERT INTO profesor_funcionario (RFC, Nombre, Colegio, Contrasena) VALUES ('$rfc', '$nombre', '$col', '$pass')";
+                mysqli_query($conexion, $consulta);
+                header("Location: Welcome.php");
+              }
+            }
+            elseif (isset($_POST['tipo']) && $_POST['tipo'] == "T") {
+              $nombre = (isset($_POST['Nombre']) && $_POST['Nombre'] != " ")? $_POST['Nombre'] : "Desconocido";
+              $papellido = (isset($_POST['Papellido']) && $_POST['Papellido'] != " ")? $_POST['Papellido'] : "Desconocido";
+              $mapellido = (isset($_POST['Mapellido']))? $_POST['Mapellido'] : "";
+              if (isset($_POST['numtrab']) && $_POST['numtrab'] != " ") {
+                $numtrab = $_POST['numtrab'];
+              }
+              if (isset($_POST['contrasena']) && $_POST['contrasena'] != "") {
+                $pass = $_POST['contrasena'];
+              }
+              if (isset($numtrab) && isset($pass)) {
+                $nombre.=" ".$papellido." ".$mapellido;
+                $consulta = "INSERT INTO trabajador (NoSeguridadSocial, Nombre, Contrasena) VALUES ('$numtrab', '$nombre', '$pass')";
+                mysqli_query($conexion, $consulta);
+                header("Location: Welcome.php");
+              }
+            }
+          }
         }
         else {
           echo "

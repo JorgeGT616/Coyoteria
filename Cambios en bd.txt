@@ -1,0 +1,3 @@
+Nombres de alumno, profesor_funcionario, supervisor y administrasdor = varchar (75);
+Numero de seguridad social numero trabajador int (6)
+
