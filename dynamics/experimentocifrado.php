@@ -4,52 +4,35 @@ define("HASH","sha256");
 define("PASSWORD","Secure password, plz make ec¿verything s3cur3");
 define("METHOD","aes-128-cbc");
 
-function Cifrar($text)
+function Cifrando($ocultar)
 {
-  $key = openssl_digest(PASSWORD,HASH);
-  $iv_len = openssl_cipher_iv_length(METHOD);
-
-  $iv = openssl_random_pseudo_bytes($iv_len);
-  $textoCifrado = openssl_encrypt
-  (
-    $text,
-    METHOD,
-    $key,
-    OPENSSL_RAW_DATA,
-    $iv
-  );
-  $ciffWIv=base64_encode($iv.$textoCifrado);
-  return $ciffWIv;
+  $llave = openssl_digest(PASSWORD,HASH);
+  $vec_len = openssl_cipher_iv_length(METHOD);
+  $vec = openssl_random_pseudo_bytes($vec_len);
+  $cifrado = openssl_encrypt($ocultar,METHOD,$llave,OPENSSL_RAW_DATA,$vec);
+  $completo = base64_encode($vec.$cifrado);
+  return $completo;
 }
 
-function Descifrar($cifradoWIv)
+function Descifrando($cifradocomp)
 {
-  $cifradoWIv=base64_decode($cifradoWIv);
-  $iv_len= openssl_cipher_iv_length(METHOD);
-  $iv= substr($cifradoWIv,0,$iv_len);
-  $cifrado = substr($cifradoWIv,$iv_len);
-
-  $key=openssl_digest(PASSWORD,HASH);
-
-  $desciff=openssl_decrypt
-  (
-    $cifrado,
-    METHOD,
-    $key,
-    OPENSSL_RAW_DATA,
-    $iv
-  );
-
-  return $desciff;
+  $cifradocomp=base64_decode($cifradocomp);
+  $vec_len= openssl_cipher_iv_length(METHOD);
+  $vec= substr($cifradocomp,0,$vec_len);
+  $cifrado = substr($cifradocomp,$vec_len);
+  $llave=openssl_digest(PASSWORD,HASH);
+  $parades=openssl_decrypt
+  ($cifrado,METHOD,$llave,OPENSSL_RAW_DATA,$vec);
+  return $parades;
 }
-$mensaje = "Pio pio, por favor no me peguen xd";
-$ciff = Cifrar($mensaje);
+
+$dato = "Caracoles"; //contraseña a cifrar se llama $dato
+$paracif = Cifrando($dato);
 //$textoOriginal=Descifrar(Cifrar("textoOriginal"));
-$desciff = Descifrar($ciff);
+$parades = Descifrando($paracif);
 //echo $desciff;
 
-echo "Mensaje Original: ".$mensaje."<br>";
-echo "Mensaje Cifrado: ".$ciff."<br>";
-echo "Mensaje Descifrado: ".$desciff."<br>";
-
+echo "Mensaje Original: ".$dato."<br>";
+echo "Mensaje Cifrado: ".$paracif."<br>";
+echo "Mensaje Descifrado: ".$parades."<br>";
 ?>
