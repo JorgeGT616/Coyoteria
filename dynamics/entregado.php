@@ -1,6 +1,6 @@
 <?php
  echo "<!DOCTYPE html>";
- $vinculo = mysqli_connect("localhost","root","","baseproductos");
+ $vinculo = mysqli_connect("localhost","root","","coyoteriabase");
  $client = (isset($_POST['idcliente'])) ? $_POST['idcliente']: "Sin datos";
  $elemento2 = mysqli_query($vinculo, $client);
  if(!$vinculo)

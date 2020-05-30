@@ -1,5 +1,5 @@
 <?php
-$vinculo = mysqli_connect("localhost","root","","baseproductos");
+$vinculo = mysqli_connect("localhost","root","","coyoteriabase");
 
 if(!$vinculo)
 {
