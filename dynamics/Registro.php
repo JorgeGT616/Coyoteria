@@ -240,6 +240,7 @@
             </fieldset>
           ";
         }
+        mysqli_close($conexion);
       }
     ?>
   </body>

@@ -130,9 +130,33 @@
               }
               if (isset($numcuenta) && isset($pass)) {
                 $nombre.=" ".$papellido." ".$mapellido;
-                $consulta = "INSERT INTO alumno (NoCuenta, Nombre, Grupo, Contrasena) VALUES ('$numcuenta', '$nombre', '$grupo', '$pass')";
-                mysqli_query($conexion, $consulta);
-                header("Location: Welcome.php");
+                $consulta2 = "SELECT NoCuenta FROM alumno WHERE NoCuenta='$numcuenta'";
+                $respuesta= mysqli_query($conexion, $consulta2);
+                if($row=mysqli_fetch_array($respuesta)){
+                  $resp = "El numero de cuenta ya tiene un usuario";
+                  echo "
+                    <fieldset class='aber'>
+                      <legend><h1>Advertencia</h1> </legend>
+                      <table class='transparente'>
+                        <tr>
+                          <th>".$resp."</th>
+                        </tr>
+                        <tr>
+                          <th>
+                            <form action='Registro.php' method='post'>
+                              <input type='submit' name='Regresar' value='Regresar'>
+                            </form>
+                          </th>
+                        </tr>
+                      </table>
+                    </fieldset>
+                  ";
+                }
+                else{
+                  $consulta = "INSERT INTO alumno (NoCuenta, Nombre, Grupo, Contrasena) VALUES ('$numcuenta', '$nombre', '$grupo', '$pass')";
+                  mysqli_query($conexion, $consulta);
+                  header("Location: Welcome.php");
+                }
               }
             }
             elseif (isset($_POST['tipo']) && $_POST['tipo'] == "P") {
@@ -149,9 +173,33 @@
               }
               if (isset($rfc) && isset($pass)) {
                 $nombre.=" ".$papellido." ".$mapellido;
-                $consulta = "INSERT INTO profesor_funcionario (RFC, Nombre, Colegio, Contrasena) VALUES ('$rfc', '$nombre', '$col', '$pass')";
-                mysqli_query($conexion, $consulta);
-                header("Location: Welcome.php");
+                $consulta2 = "SELECT RFC FROM profesor_funcionario WHERE RFC='$usuario'";
+                $respuesta= mysqli_query($conexion, $consulta2);
+                if($row=mysqli_fetch_array($respuesta)){
+                  $resp = "El RFC ya pertenece a un usuario";
+                  echo "
+                    <fieldset class='aber'>
+                      <legend><h1>Advertencia</h1> </legend>
+                      <table class='transparente'>
+                        <tr>
+                          <th>".$resp."</th>
+                        </tr>
+                        <tr>
+                          <th>
+                            <form action='Registro.php' method='post'>
+                              <input type='submit' name='Regresar' value='Regresar'>
+                            </form>
+                          </th>
+                        </tr>
+                      </table>
+                    </fieldset>
+                  ";
+                }
+                else {
+                  $consulta = "INSERT INTO profesor_funcionario (RFC, Nombre, Colegio, Contrasena) VALUES ('$rfc', '$nombre', '$col', '$pass')";
+                  mysqli_query($conexion, $consulta);
+                  header("Location: Welcome.php");
+                }
               }
             }
             elseif (isset($_POST['tipo']) && $_POST['tipo'] == "T") {
@@ -167,11 +215,36 @@
               }
               if (isset($numtrab) && isset($pass)) {
                 $nombre.=" ".$papellido." ".$mapellido;
-                $consulta = "INSERT INTO trabajador (NoSeguridadSocial, Nombre, Contrasena) VALUES ('$numtrab', '$nombre', '$pass')";
-                mysqli_query($conexion, $consulta);
-                header("Location: Welcome.php");
+                $consulta2 = "SELECT NoSeguridadSocial FROM trabajador WHERE NoSeguridadSocial='$usuario'";
+                $respuesta= mysqli_query($conexion, $consulta2);
+                if($row=mysqli_fetch_array($respuesta)){
+                  $resp = "El Número de Trabajador ya pertenece a un usuario";
+                  echo "
+                    <fieldset class='aber'>
+                      <legend><h1>Advertencia</h1> </legend>
+                      <table class='transparente'>
+                        <tr>
+                          <th>".$resp."</th>
+                        </tr>
+                        <tr>
+                          <th>
+                            <form action='Registro.php' method='post'>
+                              <input type='submit' name='Regresar' value='Regresar'>
+                            </form>
+                          </th>
+                        </tr>
+                      </table>
+                    </fieldset>
+                  ";
+                }
+                else {
+                  $consulta = "INSERT INTO trabajador (NoSeguridadSocial, Nombre, Contrasena) VALUES ('$numtrab', '$nombre', '$pass')";
+                  mysqli_query($conexion, $consulta);
+                  header("Location: Welcome.php");
+                }
               }
             }
+            mysqli_close($conexion);
           }
         }
         else {
