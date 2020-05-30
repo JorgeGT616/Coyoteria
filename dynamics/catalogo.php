@@ -1,8 +1,8 @@
 <?php
-
+//conexion con la base de datos
 $vinculo = mysqli_connect("localhost","root","","baseproductos");
 
-if(!$vinculo)
+if(!$vinculo)//Comprueba si la conexión se efectuó
 {
   echo mysqli_connect_error();
   echo mysqli_connect_errno();
@@ -10,9 +10,11 @@ if(!$vinculo)
 }
 else
 {
+  //Variable de la consulta
   $consulta = "SELECT * FROM alimento";
+  //Realiza la consulta
   $elemento = mysqli_query($vinculo, $consulta);
-
+  //inicia el formulario para hacer el pedido
   echo "<form class='' action='producto.php' method='get'>";
     echo "<table border = 3 width = 800 style = 'text-align: center; margin:auto'>";
     echo "<tr>
@@ -20,12 +22,14 @@ else
                 <h3><br>MENÚ</h3>
             </td>
           </tr>";
+    //While para realizar la tabla mientras existan elementos en la base
     while($columna = mysqli_fetch_array($elemento))
     {
       if($columna[3] > 0)
       {
         echo "<tr >";
           echo "<td rowspan = 2 width = 200>";
+          //posicionamiento con los datos por columna
             echo "<img src = '".$columna[4]."'title = 'Producto' height = 100>";
           echo "</td>";
           echo "<td>";
@@ -45,6 +49,7 @@ else
         echo "</tr>";
       }
     }
+  //Formulario para agregar la ubicación a la que será llevado el pedido
   echo       "<tr>
                 <td colspan = 3>
                   <p>
