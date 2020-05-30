@@ -3,12 +3,13 @@
     <head>
         <meta charset="utf-8">
         <title>Productos</title>
+        <link rel = "stylesheet" href = "../statics/css/Diseño.css">
     </head>
     <body>
         <fieldset><legend><h2>Modificación de productos</h2></legend>
         <?php
             //Inicia conexión con la base de datos
-            $conexion = mysqli_connect("localhost", "root", "", "ECH");
+            $conexion = mysqli_connect("localhost", "root", "", "coyoteriabase");
             $consulta = "SELECT * FROM Alimento";
             $respuesta = mysqli_query($conexion, $consulta);
             //Coloca productos de la base 
@@ -33,7 +34,7 @@
             <fieldset><legend><h2>Nuevo producto</h2></legend>
                 <?php
                     //Inicia conexión con base para indicar número de serie a nuevo producto
-                    $conexion = mysqli_connect("localhost", "root", "", "ECH");
+                    $conexion = mysqli_connect("localhost", "root", "", "coyoteriabase");
                     $consulta = "SELECT MAX(NoSerie) FROM Alimento";
                     $respuesta = mysqli_query($conexion, $consulta);
                     $valor = mysqli_fetch_array($respuesta, MYSQLI_NUM);
@@ -49,6 +50,6 @@
                 <input type = 'hidden' name = 'alimento' value = 'Nuevo'/>
             </fieldset>
         </form>
-        <p><a href = "./PantallaAdmin.html">Regresa a pantalla de administradores</a></p>
+        <p><a href = "../templates/PantallaAdmin.html">Regresa a pantalla de administradores</a></p>
     </body>
 </html>
