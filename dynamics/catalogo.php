@@ -1,6 +1,6 @@
 <?php
 //conexion con la base de datos
-$vinculo = mysqli_connect("localhost","root","","baseproductos");
+$vinculo = mysqli_connect("localhost","root","","coyoteriabase");
 
 if(!$vinculo)//Comprueba si la conexión se efectuó
 {
