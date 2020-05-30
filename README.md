@@ -40,7 +40,8 @@ Al usar el sistema de Coyoteria estas aceptando los terminos y condiciones de se
 <h2>Observaciones para los mentores</h2><br>
 Dentro de todas las practicas tratamos de exlicar lo mejor posible como funcionaban cada una de las funciones, en las pruebas todo funcionaba correctamente y esperamos que asi sea cuando usedes lo califiquen, cualquier duad o regunta pueden expresarnosla sin problema
 <br>
-
+<br>
+<br>
 Coyoteria SA de CV marca registrada, el logotipo y el nombre son marcas registradas. <br>
 Este programa es publico ajeno a cualquier partido politico queda prohibido su uso para los fines distintos a los establecidos en el programa.
 
