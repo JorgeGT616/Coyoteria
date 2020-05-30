@@ -8,7 +8,7 @@
   </head>
   <body>
     <?php
-      $conexion = mysqli_connect("localhost", "root", "", "Coyote");
+      $conexion = mysqli_connect("localhost", "root", "", "coyoteriabase");
       if( !$conexion ){
         echo mysqli_conect_error();
         echo mysqli_conect_errno();

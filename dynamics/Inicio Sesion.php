@@ -12,49 +12,32 @@
     define("PASSWORD","Secure password, plz make ec¿verything s3cur3");
     define("METHOD","aes-128-cbc");
 
-    function Cifrar($text)
+    function Cifrado($ocultar)
     {
-      $key = openssl_digest(PASSWORD,HASH);
-      $iv_len = openssl_cipher_iv_length(METHOD);
-
-      $iv = openssl_random_pseudo_bytes($iv_len);
-      $textoCifrado = openssl_encrypt
-      (
-        $text,
-        METHOD,
-        $key,
-        OPENSSL_RAW_DATA,
-        $iv
-      );
-      $ciffWIv=base64_encode($iv.$textoCifrado);
-      return $ciffWIv;
+      $llave = openssl_digest(PASSWORD,HASH);
+      $vec_len = openssl_cipher_iv_length(METHOD);
+      $vec = openssl_random_pseudo_bytes($vec_len);
+      $cifrado = openssl_encrypt($ocultar,METHOD,$llave,OPENSSL_RAW_DATA,$vec);
+      $completo = base64_encode($vec.$cifrado);
+      return $completo;
     }
 
-    function Descifrar($cifradoWIv)
+    function Descifrado($cifradocomp)
     {
-      $cifradoWIv=base64_decode($cifradoWIv);
-      $iv_len= openssl_cipher_iv_length(METHOD);
-      $iv= substr($cifradoWIv,0,$iv_len);
-      $cifrado = substr($cifradoWIv,$iv_len);
-
-      $key=openssl_digest(PASSWORD,HASH);
-
-      $desciff=openssl_decrypt
-      (
-        $cifrado,
-        METHOD,
-        $key,
-        OPENSSL_RAW_DATA,
-        $iv
-      );
-
-      return $desciff;
+      $cifradocomp=base64_decode($cifradocomp);
+      $vec_len= openssl_cipher_iv_length(METHOD);
+      $vec= substr($cifradocomp,0,$vec_len);
+      $cifrado = substr($cifradocomp,$vec_len);
+      $llave=openssl_digest(PASSWORD,HASH);
+      $parades=openssl_decrypt
+      ($cifrado,METHOD,$llave,OPENSSL_RAW_DATA,$vec);
+      return $parades;
     }
 
       if ((isset($_POST['user']) && $_POST['user'] != " ") && (isset($_POST['pass']) && $_POST['pass'] != " ")) {
         $usuario = $_POST['user'];
         $contra = $_POST['pass'];
-        $conexion = mysqli_connect("localhost", "root", "", "Coyote");
+        $conexion = mysqli_connect("localhost", "root", "", "coyoteriabase");
         if( !$conexion ){
           echo mysqli_conect_error();
           echo mysqli_conect_errno();
@@ -64,12 +47,19 @@
           $consulta = "SELECT NoCuenta FROM alumno WHERE NoCuenta='$usuario'";
           $respuesta= mysqli_query($conexion, $consulta);
           if($row=mysqli_fetch_array($respuesta)){
-            $consulta = "SELECT contrasena FROM alumno WHERE NoCuenta='$usuario'";
-            $respuesta= mysqli_query($conexion, $consulta);
+            $consulta = "SELECT contrasena, nombre FROM alumno WHERE NoCuenta='$usuario'";
+            $respuesta = mysqli_query($conexion, $consulta);
             $row = mysqli_fetch_array($respuesta, MYSQLI_NUM);
             $hasheo = $row[0];
-            $deshasheo=Descifrar($hasheo);
+            $deshasheo=password_verify($contra,$hasheo);
             if ($deshasheo==$contra) {
+              $nombre=$row[1];
+              $nombre=Descifrado($nombre);
+              session_name("ElCoyote");
+              session_id("3141592653");
+              session_start();
+              $_SESSION['nombre'] = $nombre;
+              $_SESSION['usuario'] = $usuario;
               header("Location: Welcome.php");
             }
             else {
@@ -80,7 +70,6 @@
                   <table class='transparente'>
                     <tr>
                       <th>Contraseña incorrecta</th>
-                      ".$deshasheo."
                     </tr>
                     <tr>
                       <th><input type='submit' name='Regresar' value='Regresar'></th>
@@ -100,9 +89,13 @@
               $respuesta= mysqli_query($conexion, $consulta);
               $row = mysqli_fetch_array($respuesta, MYSQLI_NUM);
               $hasheo = $row[0];
-              $deshasheo="chale";
-              $deshasheo=Descifrar($hasheo);
+              $deshasheo=password_verify($contra,$hasheo);
               if ($deshasheo==$contra) {
+
+                session_name($usuario);
+                session_id($hasheo);
+                session_start();
+
                 header("Location: Welcome.php");
               }
               else {
@@ -113,7 +106,6 @@
                     <table class='transparente'>
                       <tr>
                         <th>Contraseña incorrecta</th>
-                        ".$deshasheo."
                       </tr>
                       <tr>
                         <th><input type='submit' name='Regresar' value='Regresar'></th>
@@ -133,8 +125,13 @@
                 $respuesta= mysqli_query($conexion, $consulta);
                 $row = mysqli_fetch_array($respuesta, MYSQLI_NUM);
                 $hasheo = $row[0];
-                $deshasheo=Descifrar($hasheo);
+                $deshasheo=password_verify($contra,$hasheo);
                 if ($deshasheo==$contra) {
+
+                  session_name($usuario);
+                  session_id($hasheo);
+                  session_start();
+
                   header("Location: Welcome.php");
                 }
                 else {

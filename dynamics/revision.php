@@ -12,43 +12,26 @@
       define("PASSWORD","Secure password, plz make ec¿verything s3cur3");
       define("METHOD","aes-128-cbc");
 
-      function Cifrar($text)
+      function Cifrado($ocultar)
       {
-        $key = openssl_digest(PASSWORD,HASH);
-        $iv_len = openssl_cipher_iv_length(METHOD);
-
-        $iv = openssl_random_pseudo_bytes($iv_len);
-        $textoCifrado = openssl_encrypt
-        (
-          $text,
-          METHOD,
-          $key,
-          OPENSSL_RAW_DATA,
-          $iv
-        );
-        $ciffWIv=base64_encode($iv.$textoCifrado);
-        return $ciffWIv;
+        $llave = openssl_digest(PASSWORD,HASH);
+        $vec_len = openssl_cipher_iv_length(METHOD);
+        $vec = openssl_random_pseudo_bytes($vec_len);
+        $cifrado = openssl_encrypt($ocultar,METHOD,$llave,OPENSSL_RAW_DATA,$vec);
+        $completo = base64_encode($vec.$cifrado);
+        return $completo;
       }
 
-      function Descifrar($cifradoWIv)
+      function Descifrado($cifradocomp)
       {
-        $cifradoWIv=base64_decode($cifradoWIv);
-        $iv_len= openssl_cipher_iv_length(METHOD);
-        $iv= substr($cifradoWIv,0,$iv_len);
-        $cifrado = substr($cifradoWIv,$iv_len);
-
-        $key=openssl_digest(PASSWORD,HASH);
-
-        $desciff=openssl_decrypt
-        (
-          $cifrado,
-          METHOD,
-          $key,
-          OPENSSL_RAW_DATA,
-          $iv
-        );
-
-        return $desciff;
+        $cifradocomp=base64_decode($cifradocomp);
+        $vec_len= openssl_cipher_iv_length(METHOD);
+        $vec= substr($cifradocomp,0,$vec_len);
+        $cifrado = substr($cifradocomp,$vec_len);
+        $llave=openssl_digest(PASSWORD,HASH);
+        $parades=openssl_decrypt
+        ($cifrado,METHOD,$llave,OPENSSL_RAW_DATA,$vec);
+        return $parades;
       }
       /*$mensaje = "Pio pio, por favor no me peguen xd";
       $ciff = Cifrar($mensaje);
@@ -109,7 +92,7 @@
           }
         }
         if ($resp== "¡Bien! Su contraseña tiene mayúsculas") {
-          $conexion = mysqli_connect("localhost", "root", "", "Coyote");
+          $conexion = mysqli_connect("localhost", "root", "", "coyoteriabase");
           if( !$conexion ){
             echo mysqli_conect_error();
             echo mysqli_conect_errno();
@@ -126,10 +109,11 @@
               }
               if (isset($_POST['contrasena']) && $_POST['contrasena'] != "") {
                 $pass = $_POST['contrasena'];
-                $pass = Cifrar($pass);
+                $pass  = password_hash($pass,PASSWORD_BCRYPT);
               }
               if (isset($numcuenta) && isset($pass)) {
                 $nombre.=" ".$papellido." ".$mapellido;
+                $nombre=Cifrado($nombre);
                 $consulta2 = "SELECT NoCuenta FROM alumno WHERE NoCuenta='$numcuenta'";
                 $respuesta= mysqli_query($conexion, $consulta2);
                 if($row=mysqli_fetch_array($respuesta)){
@@ -169,11 +153,12 @@
               }
               if (isset($_POST['contrasena']) && $_POST['contrasena'] != "") {
                 $pass = $_POST['contrasena'];
-                $pass = Cifrar($pass);
+                $pass  = password_hash($pass,PASSWORD_BCRYPT);
               }
               if (isset($rfc) && isset($pass)) {
                 $nombre.=" ".$papellido." ".$mapellido;
-                $consulta2 = "SELECT RFC FROM profesor_funcionario WHERE RFC='$usuario'";
+                $nombre=Cifrado($nombre);
+                $consulta2 = "SELECT RFC FROM profesor_funcionario WHERE RFC='$rfc'";
                 $respuesta= mysqli_query($conexion, $consulta2);
                 if($row=mysqli_fetch_array($respuesta)){
                   $resp = "El RFC ya pertenece a un usuario";
@@ -211,11 +196,12 @@
               }
               if (isset($_POST['contrasena']) && $_POST['contrasena'] != "") {
                 $pass = $_POST['contrasena'];
-                $pass = Cifrar($pass);
+                $pass  = password_hash($pass,PASSWORD_BCRYPT);
               }
               if (isset($numtrab) && isset($pass)) {
                 $nombre.=" ".$papellido." ".$mapellido;
-                $consulta2 = "SELECT NoSeguridadSocial FROM trabajador WHERE NoSeguridadSocial='$usuario'";
+                $nombre=Cifrado($nombre);
+                $consulta2 = "SELECT NoSeguridadSocial FROM trabajador WHERE NoSeguridadSocial='$numtrab'";
                 $respuesta= mysqli_query($conexion, $consulta2);
                 if($row=mysqli_fetch_array($respuesta)){
                   $resp = "El Número de Trabajador ya pertenece a un usuario";

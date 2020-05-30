@@ -8,7 +8,7 @@
     <?php
       $usuario = (isset($_POST['user']) && $_POST['user'] != " ")? $_POST['user'] : "";
       $contra = (isset($_POST['pass']) && $_POST['pass'] != " ")? $_POST['pass'] : "";
-      $conexion = mysqli_connect("localhost", "root", "", "Coyote");
+      $conexion = mysqli_connect("localhost", "root", "", "coyoteriabase");
       if( !$conexion ){
         echo mysqli_conect_error();
         echo mysqli_conect_errno();

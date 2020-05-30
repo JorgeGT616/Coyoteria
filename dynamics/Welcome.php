@@ -8,13 +8,21 @@
   </head>
   <body>
     <?php
+      session_name("ElCoyote");
+      session_id("3141592653");
+      session_start();
+      $nombre = (isset($_SESSION['nombre']))? $_SESSION['nombre'] : "Desconocido";
+      $usuario = (isset($_SESSION['usuario']))? $_SESSION['usuario'] : "Desconocido";
       echo "
       <fieldset class='aber'>
         <legend><h1>Regístrate</h1> </legend>
-        <form  action='Registro.php' method='post'>
+        <form  action='Cerrar Sesion.php' method='post'>
           <table class='transparente'>
             <tr>
-              <th>Welcome</th>
+              <th>Welcome ".$nombre."</th>
+            </tr>
+            <tr>
+              <th><input type='submit' value='Cerrar Sesión'></th>
             </tr>
           </table>
         </form>
