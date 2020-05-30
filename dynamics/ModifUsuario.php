@@ -3,12 +3,13 @@
     <head>
         <meta charset="utf-8">
         <title>Usuarios</title>
+        <link rel = "stylesheet" href = "../statics/css/Diseño.css">
     </head>
     <body>
         <fieldset><legend><h2>Actualización de información y regulación de usuarios</h2></legend>
         <?php
             //Inicia conexión con base de datos
-            $conexion = mysqli_connect("localhost", "root", "", "ECH");
+            $conexion = mysqli_connect("localhost", "root", "", "coyoteriabase");
             //Refiere a entidad "Alumno"
             $consulta = "SELECT * FROM Alumno";
             $respuesta = mysqli_query($conexion, $consulta);
@@ -61,7 +62,7 @@
             echo "</fieldset>";
             mysqli_close($conexion);
         ?>
-        <p><a href = "./PantallaAdmin.html">Regresa a pantalla de administradores</a></p>
+        <p><a href = "../templates/PantallaAdmin.html">Regresa a pantalla de administradores</a></p>
         </fieldset>
     </body>
 </html>
