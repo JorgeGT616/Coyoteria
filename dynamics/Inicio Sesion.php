@@ -18,17 +18,18 @@
       define("HASH","sha256");
       define("PASSWORD","Secure password, plz make ec¿verything s3cur3");
       define("METHOD","aes-128-cbc");
-
+      //funcion de cifrado para las contraseñas
       function Cifrado($ocultar)
       {
         $llave = openssl_digest(PASSWORD,HASH);
         $vec_len = openssl_cipher_iv_length(METHOD);
         $vec = openssl_random_pseudo_bytes($vec_len);
         $cifrado = openssl_encrypt($ocultar,METHOD,$llave,OPENSSL_RAW_DATA,$vec);
+        //Integración del cifrado con el vector de inicialización
         $completo = base64_encode($vec.$cifrado);
         return $completo;
       }
-
+      //función de descifrado
       function Descifrado($cifradocomp)
       {
         $cifradocomp=base64_decode($cifradocomp);
@@ -36,30 +37,37 @@
         $vec= substr($cifradocomp,0,$vec_len);
         $cifrado = substr($cifradocomp,$vec_len);
         $llave=openssl_digest(PASSWORD,HASH);
-        $parades=openssl_decrypt
-        ($cifrado,METHOD,$llave,OPENSSL_RAW_DATA,$vec);
+        //Descifrado del mensaje
+        $parades=openssl_decrypt($cifrado,METHOD,$llave,OPENSSL_RAW_DATA,$vec);
         return $parades;
       }
-
+        //Traida y protección de la información del usuario para establecer variables
         if ((isset($_POST['user']) && $_POST['user'] != " ") && (isset($_POST['pass']) && $_POST['pass'] != " ")) {
           $usuario = htmlentities($_POST['user']);
           $usuario = strip_tags($usuario);
           $contra = htmlentities($_POST['pass']);
           $contra = strip_tags($contra);
           $conexion = mysqli_connect("localhost", "root", "", "coyoteriabase");
+          //Verificación de la conexión
           if( !$conexion ){
             echo mysqli_conect_error();
             echo mysqli_conect_errno();
             exit();
           }
           else {
+            //Acciones solo tras confirmada la conexión
             $consulta = "SELECT NoCuenta FROM alumno WHERE NoCuenta='$usuario'";
+            //$consulta2 = mysqli_real_escape_string($conexion, $consulta);
             $respuesta= mysqli_query($conexion, $consulta);
             if($row=mysqli_fetch_array($respuesta)){
+              //Consulta a la base de datos
               $consulta = "SELECT contrasena, nombre FROM alumno WHERE NoCuenta='$usuario'";
-              $respuesta = mysqli_query($conexion, $consulta);
+              $consulta2 = mysqli_real_escape_string($conexion, $consulta);
+              $respuesta = mysqli_query($conexion, $consulta2);
+              //Intercambio de la iformación como cadena
               $row = mysqli_fetch_array($respuesta, MYSQLI_NUM);
               $hasheo = $row[0];
+              //Verificación de la contraseña
               $deshasheo=password_verify($contra,$hasheo);
               if ($deshasheo==$contra) {
                 $nombre=$row[1];
@@ -94,14 +102,18 @@
               mysqli_close($conexion);
             }
             else {
+              //Consulta específica para docentes
               $consulta = "SELECT RFC FROM profesor_funcionario WHERE RFC='$usuario'";
+              //$consulta2 = mysqli_real_escape_string($conexion, $consulta);
               $respuesta= mysqli_query($conexion, $consulta);
               if($row=mysqli_fetch_array($respuesta)){
                 $consulta = "SELECT contrasena, nombre FROM profesor_funcionario WHERE RFC='$usuario'";
+                //$consulta2 = mysqli_real_escape_string($conexion, $consulta);
                 $respuesta= mysqli_query($conexion, $consulta);
                 $row = mysqli_fetch_array($respuesta, MYSQLI_NUM);
                 $hasheo = $row[0];
                 $deshasheo=password_verify($contra,$hasheo);
+                //Inicio de sesion para profesor y funcionario
                 if ($deshasheo==$contra) {
                   $nombre=$row[1];
                   $nombre=Descifrado($nombre);
@@ -135,13 +147,17 @@
                 mysqli_close($conexion);
               }
               else {
+                //Consulta de información especifica para trabajadores
                 $consulta = "SELECT NoSeguridadSocial FROM trabajador WHERE NoSeguridadSocial='$usuario'";
-                $respuesta= mysqli_query($conexion, $consulta);
+                //$consulta2 = mysqli_real_escape_string($conexion, $consulta);
+                $respuesta= mysqli_query($conexion, $consulta2);
                 if($row=mysqli_fetch_array($respuesta)){
-                  $consulta = "SELECT contrasena, nombre FROM trabajador WHERE NoSeguridadSocial='$usuario'";
+                  $consulta = "SELECT contrasena, nombre FROM trabajador WHERE NoSeguridadSocial=''";
+                  //$consulta2 = mysqli_real_escape_string($conexion, $consulta);
                   $respuesta= mysqli_query($conexion, $consulta);
                   $row = mysqli_fetch_array($respuesta, MYSQLI_NUM);
                   $hasheo = $row[0];
+                  //Verificacion de la contraseña
                   $deshasheo=password_verify($contra,$hasheo);
                   if ($deshasheo==$contra) {
                     $nombre=$row[1];
