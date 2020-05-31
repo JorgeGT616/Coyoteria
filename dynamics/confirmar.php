@@ -59,8 +59,16 @@
                 </tr>
                 <tr>
                   <th><input type='submit' name='Regresar' value='Regresar'></th>
+
                 </tr>
               </table>
+            </form>
+            <form action= 'cambioubi2.php' method= 'post'>
+            <tr>
+              <th><input type='submit' name='Cambiar ubicación' value='cambiarubi'></th>
+              $_SESSION['pedido'] = $pedido;
+
+            </tr>
             </form>
           </fieldset>
           ";
