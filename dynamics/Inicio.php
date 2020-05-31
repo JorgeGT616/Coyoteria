@@ -20,10 +20,11 @@
           <input type="submit" value="Administrar"> <br>
         </form>
           <fieldset class="aber">
-            <legend> <h1>El Coyote Hambriento</h1></legend>
+            <legend> <h1>Coyotería</h1> </legend>
             <table class="transparente1">
               <tr>
                 <th><h2>Regístrate</h2></th>
+                <th rowspan="2"><img src="../statics/Img/Logo.png" alt="Logo" style="height:70px"></th>
                 <th><h2>Inicia Sesión</h2> </th>
               </tr>
               <tr>
@@ -32,6 +33,7 @@
                     <input type="submit" value="Registrate"> <br>
                   </form>
                 </th>
+
                 <th>
                   <form action="Inicio Sesion.php" method="post">
                     <input type="submit" value="Iniciar Sesión">
@@ -40,7 +42,7 @@
               </tr>
             </table>
           </fieldset> <br>
-          <img src="../statics/Img/Logo.png" alt="Logo" style="height:70px">
+
         ';
       }
     ?>

@@ -40,7 +40,11 @@
           }
           else {
             if ($aber) {
-              header("Location:../templates/PantallaAdmin.html");
+              session_name("ElCoyote");
+              session_id("3141592653");
+              session_start();
+              $_SESSION['supercontra'] = $supercontrasena;
+              header("Location:./PantallaAdmin.php");
             }
             elseif ($aberts){
               header("Location:supervisor.php");
@@ -49,14 +53,22 @@
         }
         else{
           echo "
+          <form action='Inicio.php' method='post'>
+            <input type='submit' value='Regresar'> </input>
+          </form>
           <fieldset class='aber'>
-            <legend><h1>Administradores y Supervisores</h1> </legend>
+            <legend><h2>Administradores y Supervisores</h2> </legend>
             <form  action='Administrador.php' method='post'>
-              Contraseña:
-              <input type='password' name='supercontra' value=''> </input>
-              <input type='submit' value='Ingresar'> </input>
+              <table class ='transparente'>
+                <tr>
+                  <th>Contraseña:<input type='password' name='supercontra' value=''> </input> </th>
+                </tr>
+                <tr>
+                  <th><input type='submit' value='Ingresar'> </input> </th>
+                </tr>
+              <table>
             </form>
-          </fieldset>
+
           ";
         }
       }

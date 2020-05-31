@@ -28,10 +28,16 @@
       else
       {
         //numero de serie
-        $clientoso="SELECT idCliente FROM cliente WHERE (NoCuenta=$usuario) OR (RFC=\".$usuario.\") OR (NoSeguridadSocial=$usuario)";
-        $corroborar=mysqli_query($vinculo,$clientoso);
+        $clientoso="SELECT idCliente FROM cliente WHERE RFC='$usuario'";
+        $corroborar=mysqli_query($vinculo, $clientoso);
         $columna = mysqli_fetch_array($corroborar);
         $cliente=$columna[0];
+        if (isset($columna[0])==false) {
+          $clientoso="SELECT idCliente FROM cliente WHERE (NoCuenta=$usuario) OR (NoSeguridadSocial=$usuario)";
+          $corroborar=mysqli_query($vinculo, $clientoso);
+          $columna = mysqli_fetch_array($corroborar);
+          $cliente=$columna[0];
+        }
         $precio="SELECT Precio FROM alimento ";
         $precio2= mysqli_query($vinculo, $precio);
         $precio3=mysqli_fetch_array($precio2);

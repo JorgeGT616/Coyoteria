@@ -13,9 +13,9 @@
             //Refiere a entidad "Alumno"
             $consulta = "SELECT * FROM Alumno";
             $respuesta = mysqli_query($conexion, $consulta);
-            echo "<fieldset><legend><h3>Alumnos</h3></legend>";
+            echo "<fieldset ><legend><h3>Alumnos</h3></legend>";
             while($fila = mysqli_fetch_array($respuesta, MYSQLI_NUM)){
-                echo "<form action= './EAU.php' method= 'POST'>";
+                echo "<form action= './EAU.php' method= 'POST' class='transparente'";
                     echo "Número de cuenta: <input type = 'hidden' name = 'usuario' value = '$fila[0]'/>".$fila[0]."<br>";
                     echo "Nombre: <input type = 'text' name = 'nombre' value = '$fila[1]'/><br>";
                     echo "Grupo: <input type = 'text' name = 'grupo' value = '$fila[2]'/><br>";
@@ -30,9 +30,9 @@
             //Refiere a entidad "Profesor_Funcionario"
             $consulta = "SELECT * FROM Profesor_Funcionario";
             $respuesta = mysqli_query($conexion, $consulta);
-            echo "<fieldset><legend><h3>Profesores o Funcionarios</h3></legend>";
+            echo "<fieldset ><legend><h3>Profesores o Funcionarios</h3></legend>";
             while($fila = mysqli_fetch_array($respuesta, MYSQLI_NUM)){
-                echo "<form action= './EAU.php' method= 'POST'>";
+                echo "<form action= './EAU.php' method= 'POST' class='transparente'>";
                     echo "RFC: <input type = 'hidden' name = 'usuario' value = '$fila[0]'/>".$fila[0]."<br>";
                     echo "Nombre: <input type = 'text' name = 'nombre' value = '$fila[1]'/><br>";
                     echo "Colegio: <input type = 'text' name = 'colegio' value = '$fila[2]'/><br>";
@@ -47,9 +47,9 @@
             //Refiere a entidad "Trabajador"
             $consulta = "SELECT * FROM Trabajador";
             $respuesta = mysqli_query($conexion, $consulta);
-            echo "<fieldset><legend><h3>Trabajadores</h3></legend>";
+            echo "<fieldset ><legend><h3>Trabajadores</h3></legend>";
             while($fila = mysqli_fetch_array($respuesta, MYSQLI_NUM)){
-                echo "<form action= './EAU.php' method= 'POST'>";
+                echo "<form action= './EAU.php' method= 'POST' class='transparente'>";
                     echo "Número de Seguridad Social: <input type = 'hidden' name = 'usuario' value = '$fila[0]'/>".$fila[0]."<br>";
                     echo "Nombre: <input type = 'text' name = 'nombre' value = '$fila[1]'/><br>";
                     echo "Contraseña: <input type = 'text' name = 'contra' value = '$fila[2]'/><br>";
@@ -62,7 +62,7 @@
             echo "</fieldset>";
             mysqli_close($conexion);
         ?>
-        <p><a href = "../templates/PantallaAdmin.html">Regresa a pantalla de administradores</a></p>
+        <p><a href = "PantallaAdmin.php">Regresa a pantalla de administradores</a></p>
         </fieldset>
     </body>
 </html>

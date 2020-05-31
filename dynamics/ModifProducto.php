@@ -12,9 +12,9 @@
             $conexion = mysqli_connect("localhost", "root", "", "coyoteriabase");
             $consulta = "SELECT * FROM Alimento";
             $respuesta = mysqli_query($conexion, $consulta);
-            //Coloca productos de la base 
+            //Coloca productos de la base
             while($fila = mysqli_fetch_array($respuesta, MYSQLI_NUM)){
-                echo "<form action= './EAP.php' method= 'POST'>";
+                echo "<form action= './EAP.php' method= 'POST' class='transparente'>";
                     echo "No. Serie: <input type = 'hidden' name = 'serie' value = '$fila[0]'/>".$fila[0]."<br>";
                     echo "Producto: <input type = 'text' name = 'producto' value = '$fila[1]'/><br>";
                     echo "Precio: <input type = 'text' name = 'precio' value = '$fila[2]'/><br>";
@@ -30,8 +30,9 @@
             mysqli_close($conexion);
         ?>
         </fieldset>
-        <form action= 'EAP.php' method= 'POST'>
-            <fieldset><legend><h2>Nuevo producto</h2></legend>
+        <fieldset><legend><h2>Nuevo producto</h2></legend>
+        <form action= 'EAP.php' method= 'POST'  class='transparente'>
+
                 <?php
                     //Inicia conexión con base para indicar número de serie a nuevo producto
                     $conexion = mysqli_connect("localhost", "root", "", "coyoteriabase");
@@ -50,6 +51,6 @@
                 <input type = 'hidden' name = 'alimento' value = 'Nuevo'/>
             </fieldset>
         </form>
-        <p><a href = "../templates/PantallaAdmin.html">Regresa a pantalla de administradores</a></p>
+        <p><a href = "PantallaAdmin.php">Regresa a pantalla de administradores</a></p>
     </body>
 </html>
