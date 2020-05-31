@@ -18,7 +18,7 @@
       <input type='submit' name='Cerrar Sesion' value='Cerrar Sesion'>
     </form>
     <fieldset class='aber'>
-      <legend><h1>Regístrate</h1> </legend>
+      <legend><h1>Usuario</h1> </legend>
         <table class='transparente'>
           <tr>
             <th>¡Hola, ".$nombre."! Selecciona el producto que deseas consumir</th>
