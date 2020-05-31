@@ -1,7 +1,7 @@
 <?php
 
 $encontrado = false;
-$vinculo = mysqli_connect("localhost","root","","contras");
+$vinculo = mysqli_connect("localhost","root","","coyoteriabase");
 
 if(!$vinculo)
 {

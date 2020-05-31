@@ -1,3 +1,4 @@
+
 body{
     background: no-repeat  url("../Img/Fondo.jpg");
     background-size: cover;
@@ -33,11 +34,13 @@ body{
   margin:auto;
 }
 
-.primera{
-  width: 700px;
+.aber2{
+  width: 377px;
+  height: 400px;
+  color: solid white;
+  margin:auto;
 }
 
-img{
-  position: relative;
-  left: 400px;
+.primera{
+  width: 700px;
 }

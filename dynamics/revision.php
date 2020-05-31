@@ -139,7 +139,17 @@
                 else{
                   $consulta = "INSERT INTO alumno (NoCuenta, Nombre, Grupo, Contrasena) VALUES ('$numcuenta', '$nombre', '$grupo', '$pass')";
                   mysqli_query($conexion, $consulta);
-                  header("Location: Welcome.php");
+                  $consulta = "INSERT INTO cliente (NoCuenta) VALUES ('$numcuenta')";
+                  mysqli_query($conexion, $consulta);
+                  $nombre=Descifrado($nombre);
+                  session_name("ElCoyote");
+                  session_id("3141592653");
+                  session_start();
+                  $usuario=$numcuenta;
+                  $_SESSION['nombre'] = $nombre;
+                  $_SESSION['usuario'] = $usuario;
+                  echo $usuario;
+                  header("Location: catalogo.php");
                 }
               }
             }
@@ -183,7 +193,16 @@
                 else {
                   $consulta = "INSERT INTO profesor_funcionario (RFC, Nombre, Colegio, Contrasena) VALUES ('$rfc', '$nombre', '$col', '$pass')";
                   mysqli_query($conexion, $consulta);
-                  header("Location: Welcome.php");
+                  $consulta = "INSERT INTO  cliente (RFC) VALUES ('$rfc')";
+                  mysqli_query($conexion, $consulta);
+                  $nombre=Descifrado($nombre);
+                  session_name("ElCoyote");
+                  session_id("3141592653");
+                  session_start();
+                  $usuario=$rfc;
+                  $_SESSION['nombre'] = $nombre;
+                  $_SESSION['usuario'] = $usuario;
+                  header("Location: catalogo.php");
                 }
               }
             }
@@ -226,7 +245,16 @@
                 else {
                   $consulta = "INSERT INTO trabajador (NoSeguridadSocial, Nombre, Contrasena) VALUES ('$numtrab', '$nombre', '$pass')";
                   mysqli_query($conexion, $consulta);
-                  header("Location: Welcome.php");
+                  $consulta = "INSERT INTO  cliente (NoSeguridadSocial) VALUES ('$numtrab')";
+                  mysqli_query($conexion, $consulta);
+                  $nombre=Descifrado($nombre);
+                  session_name("ElCoyote");
+                  session_id("3141592653");
+                  session_start();
+                  $usuario=$numtrab;
+                  $_SESSION['nombre'] = $nombre;
+                  $_SESSION['usuario'] = $usuario;
+                  //header("Location: catalogo.php");
                 }
               }
             }

@@ -5,10 +5,11 @@
     <title>Sancion</title>
   </head>
   <body>
-    <form action="./entregado.php" method="post">
+    <form action="../dynamics/entregado.php" method="post">
       <fieldset>
-        <legend><h1 align="center">Ingrese el id del cliente del cual el pedido fue entregado</h1></legend>
-        Id del cliente: <input type="number" name="idcliente" value="idcliente" required> <br>
+        <legend><h1 align="center">Ingrese el id del pedido que fue entregado satisfactoriamente y el cliente correspondiente</h1></legend>
+        Id del cliente: <input type="number" name="idcliente" value="" required> <br>
+        Id del pedido: <input type="number" name="idpedido" value="" required> <br>
         <input type="submit" value="Enviar">
       </fieldset>
   </body>

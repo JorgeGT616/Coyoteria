@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>El Coyote Hambriento</title>
-    <link rel="icon" href="../Statics/Img/Logo.png">
+    <link rel="icon" href="../statics/Img/Logo.png">
     <link rel="stylesheet" href="../Statics/css/Diseño.css">
   </head>
   <body>
@@ -219,7 +219,7 @@
         }
         else {
           echo "
-            <form  action='../Templates/Inicio.html' method='post'>
+            <form  action='Inicio.php' method='post'>
               <input type='submit' name='Regresar' value='Regresar'>
             </form>
             <fieldset class='aber'>
