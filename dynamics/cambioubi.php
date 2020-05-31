@@ -4,7 +4,7 @@
  session_id("3141592653");
  session_start();
  $pedido = (isset($_SESSION['pedido']))? $_SESSION['pedido'] : 'Desconocido';
- $vinculo = mysqli_connect("localhost","root","","baseproductos");
+ $vinculo = mysqli_connect("localhost","root","","coyoteriabase");
  $cambioubi = (isset($_POST['envio'])) ? $_POST['envio']: "Sin datos";
  if(!$vinculo)
  {
