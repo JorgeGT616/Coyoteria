@@ -42,8 +42,10 @@
       }
 
         if ((isset($_POST['user']) && $_POST['user'] != " ") && (isset($_POST['pass']) && $_POST['pass'] != " ")) {
-          $usuario = $_POST['user'];
-          $contra = $_POST['pass'];
+          $usuario = htmlentities($_POST['user']);
+          $usuario = strip_tags($usuario);
+          $contra = htmlentities($_POST['pass']);
+          $contra = strip_tags($contra);
           $conexion = mysqli_connect("localhost", "root", "", "coyoteriabase");
           if( !$conexion ){
             echo mysqli_conect_error();

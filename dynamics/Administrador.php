@@ -19,9 +19,11 @@
       else
       {
         if (isset($_POST['supercontra'])) {
-          $supercontrasena=$_POST['supercontra'];
+          $supercontrasena=htmlentities($_POST['supercontra']);
+          $supercontrasena=strip_tags($_POST['supercontra']);
           $traer = "SELECT contrasena FROM Administrador WHERE IdAdmin=2";
-          $dato = mysqli_query($vinculo, $traer);
+          $traerescapada = mysqli_real_escape_string ($vinculo,$traer);
+          $dato = mysqli_query($vinculo, $traerescapada);
           $cosito=mysqli_fetch_array($dato, MYSQLI_NUM);
           $cositoso=$cosito[0];
           $aber=password_verify($supercontrasena, $cositoso);

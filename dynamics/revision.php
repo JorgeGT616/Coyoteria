@@ -44,8 +44,8 @@
       echo "Mensaje Descifrado: ".$desciff."<br>";*/
 
       if (isset($_POST['contrasena']) && $_POST['contrasena'] != "") {
-        $contrasenaprin = (isset($_POST['contrasena']) && $_POST['contrasena'] != "") ? $_POST['contrasena'] : 'Coloque contraseña' ;
-
+        $contrasenaprin = htmlentities((isset($_POST['contrasena']) && $_POST['contrasena'] != "") ? $_POST['contrasena'] : 'Coloque contraseña' );
+        $contrasenaprin = strip_tags($contrasenaprin);
         $resp="Okay";
         //Filtro 1
         $contcomunes = array("1234567890","0987654321","qwertyuiop","asdfghjklñ","zxcvbnm",
@@ -100,15 +100,21 @@
           }
           else {
             if (isset($_POST['tipo']) && $_POST['tipo'] == "A") {
-              $nombre = (isset($_POST['Nombre']) && $_POST['Nombre'] != " ")? $_POST['Nombre'] : "Desconocido";
-              $papellido = (isset($_POST['Papellido']) && $_POST['Papellido'] != " ")? $_POST['Papellido'] : "Desconocido";
-              $mapellido = (isset($_POST['Mapellido']))? $_POST['Mapellido'] : "";
-              $grupo = (isset($_POST['Grupo']) && $_POST['Grupo'] != " ")? $_POST['Grupo'] : "0";
+              $nombre = htmlentities((isset($_POST['Nombre']) && $_POST['Nombre'] != " ")? $_POST['Nombre'] : "Desconocido");
+              $nombre = strip_tags($nombre);
+              $papellido = htmlentities((isset($_POST['Papellido']) && $_POST['Papellido'] != " ")? $_POST['Papellido'] : "Desconocido");
+              $papellido = strip_tags($papellido);
+              $mapellido = htmlentities((isset($_POST['Mapellido']))? $_POST['Mapellido'] : "");
+              $mapellido = strip_tags($mapellido);
+              $grupo = htmlentities((isset($_POST['Grupo']) && $_POST['Grupo'] != " ")? $_POST['Grupo'] : "0");
+              $grupo = strip_tags($grupo);
               if (isset($_POST['NumeroCuenta']) && $_POST['NumeroCuenta'] != " ") {
-                $numcuenta = $_POST['NumeroCuenta'];
+                $numcuenta = htmlentities($_POST['NumeroCuenta']);
+                $numcuenta = strip_tags($numcuenta);
               }
               if (isset($_POST['contrasena']) && $_POST['contrasena'] != "") {
-                $pass = $_POST['contrasena'];
+                $pass = htmlentities($_POST['contrasena']);
+                $pass = strip_tags($pass);
                 $pass  = password_hash($pass,PASSWORD_BCRYPT);
               }
               if (isset($numcuenta) && isset($pass)) {
@@ -138,9 +144,10 @@
                 }
                 else{
                   $consulta = "INSERT INTO alumno (NoCuenta, Nombre, Grupo, Contrasena) VALUES ('$numcuenta', '$nombre', '$grupo', '$pass')";
-                  mysqli_query($conexion, $consulta);
+                  $consulta2= mysqli_real_escape_string($vinculo,$consulta);
+                  mysqli_query($conexion, $consulta2);
                   $consulta = "INSERT INTO cliente (NoCuenta) VALUES ('$numcuenta')";
-                  mysqli_query($conexion, $consulta);
+                  mysqli_query($conexion, $consulta2);
                   $nombre=Descifrado($nombre);
                   session_name("ElCoyote");
                   session_id("3141592653");
@@ -154,15 +161,21 @@
               }
             }
             elseif (isset($_POST['tipo']) && $_POST['tipo'] == "P") {
-              $nombre = (isset($_POST['Nombre']) && $_POST['Nombre'] != " ")? $_POST['Nombre'] : "Desconocido";
-              $papellido = (isset($_POST['Papellido']) && $_POST['Papellido'] != " ")? $_POST['Papellido'] : "Desconocido";
-              $mapellido = (isset($_POST['Mapellido']))? $_POST['Mapellido'] : "";
-              $col = (isset($_POST['col']) && $_POST['col'] != " ")? $_POST['col'] : "Desconocido";
+              $nombre = htmlentities((isset($_POST['Nombre']) && $_POST['Nombre'] != " ")? $_POST['Nombre'] : "Desconocido");
+              $nombre = strip_tags($nombre);
+              $papellido = htmlentities((isset($_POST['Papellido']) && $_POST['Papellido'] != " ")? $_POST['Papellido'] : "Desconocido");
+              $papellido = strip_tags($papellido);
+              $mapellido = htmlentities((isset($_POST['Mapellido']))? $_POST['Mapellido'] : "");
+              $mapellido = strip_tags($mapellido);
+              $col = htmlentities((isset($_POST['col']) && $_POST['col'] != " ")? $_POST['col'] : "Desconocido");
+              $col = strip_tags($col);
               if (isset($_POST['rfc']) && $_POST['rfc'] != " ") {
-                $rfc = $_POST['rfc'];
+                $rfc = htmlentities($_POST['rfc']);
+                $rfc = strip_tags($rfc);
               }
               if (isset($_POST['contrasena']) && $_POST['contrasena'] != "") {
-                $pass = $_POST['contrasena'];
+                $pass = htmlentities($_POST['contrasena']);
+                $pass = strip_tags($pass);
                 $pass  = password_hash($pass,PASSWORD_BCRYPT);
               }
               if (isset($rfc) && isset($pass)) {
@@ -207,14 +220,19 @@
               }
             }
             elseif (isset($_POST['tipo']) && $_POST['tipo'] == "T") {
-              $nombre = (isset($_POST['Nombre']) && $_POST['Nombre'] != " ")? $_POST['Nombre'] : "Desconocido";
-              $papellido = (isset($_POST['Papellido']) && $_POST['Papellido'] != " ")? $_POST['Papellido'] : "Desconocido";
-              $mapellido = (isset($_POST['Mapellido']))? $_POST['Mapellido'] : "";
+              $nombre = htmlentities((isset($_POST['Nombre']) && $_POST['Nombre'] != " ")? $_POST['Nombre'] : "Desconocido");
+              $nombre = strip_tags($nombre);
+              $papellido = htmlentities((isset($_POST['Papellido']) && $_POST['Papellido'] != " ")? $_POST['Papellido'] : "Desconocido");
+              $papellido = strip_tags($papellido);
+              $mapellido = htmlentities((isset($_POST['Mapellido']))? $_POST['Mapellido'] : "");
+              $mapellido = strip_tags($mapellido);
               if (isset($_POST['numtrab']) && $_POST['numtrab'] != " ") {
-                $numtrab = $_POST['numtrab'];
+                $numtrab = htmlentities($_POST['numtrab']);
+                $numtrab = strip_tags($numtrab);
               }
               if (isset($_POST['contrasena']) && $_POST['contrasena'] != "") {
-                $pass = $_POST['contrasena'];
+                $pass = htmlentities($_POST['contrasena']);
+                $pass = strip_tags($pass);
                 $pass  = password_hash($pass,PASSWORD_BCRYPT);
               }
               if (isset($numtrab) && isset($pass)) {
@@ -254,7 +272,7 @@
                   $usuario=$numtrab;
                   $_SESSION['nombre'] = $nombre;
                   $_SESSION['usuario'] = $usuario;
-                  //header("Location: catalogo.php");
+                  header("Location: catalogo.php");
                 }
               }
             }

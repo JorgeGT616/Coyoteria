@@ -42,6 +42,8 @@
         $consulta = "SELECT * FROM alimento";
         //Realiza la consulta
         $elemento = mysqli_query($vinculo, $consulta);
+
+        $nada = false;
         //inicia el formulario para hacer el pedido
         echo "<form action='envios.php' method='post'>";
           echo "<table border = 3 width = 800 style = 'text-align: center; margin:auto; background-color:rgba(0, 0, 0, 0.76); color: white;'>";
@@ -62,6 +64,7 @@
                 echo "</td>";
                 echo "<td>";
                   echo "Nombre: <br>".$columna[1];
+                  $nada = true;
                 echo "</td>";
                 echo "<td rowspan = 2>";
                   echo "Disponibilidad: <br>".$columna[3]." unidades";
@@ -78,34 +81,37 @@
             }
           }
         //Formulario para agregar la ubicación a la que será llevado el pedido
-        echo       "<tr>
-                      <td colspan = 3>
-                        <p>
-                          <h3>Selecciona el lugar para recoger tu producto:</h3>
-                          Recoger en la cafeteria<input type='Radio' name='envio' required value='Recoger'> <br>
-                            Enviar al pulpo <input type='Radio' name='envio' value='Pulpo' required> <br>
-                            Enviar a sala de maestros <input type='Radio' name='envio' value='Sala de Maestros' required> <br>
-                            Enviar a direccion<input type='Radio' name='envio' value='Direccion' required> <br>
-                            Enviar al 'Tótem'<input type='Radio' name='envio' value='Totem' required> <br>
-                            Enviar al auditorio <input type='Radio' name='envio' value='Auditorio' required> <br>
-                            Enviar a patio de cuartos <input type='Radio' name='envio' value='Patio de Cuartos' required> <br>
-                            Enviar al Antonio Caso <input type='Radio' name='envio' value='Antonio Caso' required> <br>
-                            Enviar a salones de dibujo <input type='Radio' name='envio' value='Salones de Dibujo' required> <br>
-                            Enviar a pimponeras <input type='Radio' name='envio' value='Pimponeras' required> <br>
-                          </p>
-                        <br>
-                      </td>
-                    </tr>";
-        echo        "<tr>
-                      <td colspan = 3>
-                        <br>
-                          <input type = 'submit' value = 'Solicitar'>
-                        <br>
-                        <br>
-                      </td>
-                    </tr>";
-        echo     "</table>";
-        echo   "</form>";
+        if ($nada = true)
+        {
+          echo       "<tr>
+                        <td colspan = 3>
+                          <p>
+                            <h3>Selecciona el lugar para recoger tu producto:</h3>
+                            Recoger en la cafeteria<input type='Radio' name='envio' required value='Recoger'> <br>
+                              Enviar al pulpo <input type='Radio' name='envio' value='Pulpo' required> <br>
+                              Enviar a sala de maestros <input type='Radio' name='envio' value='Sala de Maestros' required> <br>
+                              Enviar a direccion<input type='Radio' name='envio' value='Direccion' required> <br>
+                              Enviar al 'Tótem'<input type='Radio' name='envio' value='Totem' required> <br>
+                              Enviar al auditorio <input type='Radio' name='envio' value='Auditorio' required> <br>
+                              Enviar a patio de cuartos <input type='Radio' name='envio' value='Patio de Cuartos' required> <br>
+                              Enviar al Antonio Caso <input type='Radio' name='envio' value='Antonio Caso' required> <br>
+                              Enviar a salones de dibujo <input type='Radio' name='envio' value='Salones de Dibujo' required> <br>
+                              Enviar a pimponeras <input type='Radio' name='envio' value='Pimponeras' required> <br>
+                            </p>
+                          <br>
+                        </td>
+                      </tr>";
+          echo        "<tr>
+                        <td colspan = 3>
+                          <br>
+                            <input type = 'submit' value = 'Solicitar'>
+                          <br>
+                          <br>
+                        </td>
+                      </tr>";
+          echo     "</table>";
+          echo   "</form>";
+        }
         echo $nombre;
         echo $usuario;
         $_SESSION['nombre'] = $nombre;

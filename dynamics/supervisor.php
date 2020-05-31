@@ -40,9 +40,8 @@
               <th>Sancion? ".$columna[4]."</th>
             </tr>
             <tr>
-              <th>Id del cliente ".$columna[5]"</th>
+              <th>Id del cliente ".$columna[5]."</th>
             </tr>
-            <tr>
           </table>";
 
         }
