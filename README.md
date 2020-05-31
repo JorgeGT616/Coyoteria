@@ -3,7 +3,7 @@
 Les presentamos a ustedes nuestros mentores nuestro proyecto de modulo "Coyoteria" <br>
 Tuvimos que cambiar el nombre por coyoteria porque nos enteramos que el primero del coyote hambriento otro equipo lo habia utilizado ya
 <br>
-<h2>Equipo celestial</h2><br><br>
+<h2>Equipo celestial</h2><br>
 <h3>integrantes:</h3><br>
 Salgado Abreu Elizabeth<br>
 Raúl de Jesús Damian Magaña<br>
